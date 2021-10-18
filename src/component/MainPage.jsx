@@ -3,27 +3,27 @@ import { Howler } from "howler";
 import React from "react";
 import { Link } from "react-router-dom";
 function MainPage({ sound, setSound, imgList, img, setImg }) {
-
   const [input, setInput] = React.useState("");
   const [hint, setHint] = React.useState(false);
   const handleChange = (e) => {
     setInput(e.target.value);
   };
   React.useEffect(() => {
-    if (input.includes("muvan")) {
+    if (input.toLowerCase().includes("ly")) {
+      setImg(imgList.ly);
+      return;
+    }
+    if (input.toLowerCase().includes("muvan")) {
       setImg(imgList.my);
       return;
     }
-    if (input.includes("khongchomuontien")) {
-      setImg(imgList.truc);
-      return;
-    }
-    if (input.includes("kehuydiettrodua")) {
+
+    if (input.toLowerCase().includes("kehuydiettrodua")) {
       setImg(imgList.nhi);
       return;
     }
-    if (input.includes("ly")) {
-      setImg(imgList.ly);
+    if (input.toLowerCase().includes("khongchomuontien")) {
+      setImg(imgList.truc);
       return;
     }
     setImg(imgList.default);
@@ -34,19 +34,16 @@ function MainPage({ sound, setSound, imgList, img, setImg }) {
   React.useEffect(() => {
     Howler.volume(sound ? 0.3 : 0);
   }, [sound]);
-  const handleChangePage= (e)=>{
-    if(img.includes("cat.jpg"))
-      e.preventDefault();
-    
-  }
-  const [text, setText]= React.useState("Hint");
-  const handleChangeMod = () =>{
-    if(text === "Hint"){
+  const handleChangePage = (e) => {
+    if (img.includes("cat.jpg")) e.preventDefault();
+  };
+  const [text, setText] = React.useState("Hint");
+  const handleChangeMod = () => {
+    if (text === "Hint") {
       setText("Quá thất vọng, click lần nữa");
-      return ;
-    }
-    else setHint(true)
-  }
+      return;
+    } else setHint(true);
+  };
   return (
     <>
       <div className="MainPage-component" />
@@ -55,7 +52,7 @@ function MainPage({ sound, setSound, imgList, img, setImg }) {
           <div className="MainPage-center-input-img">
             <img src="arrow.svg" alt="" />
             <Link to="/congrat" className="second" onClick={handleChangePage}>
-              <img src={img} alt="" className="second-img"/>
+              <img src={img} alt="" className="second-img" />
             </Link>
             <img src="arrow2.svg" alt="" />
           </div>
@@ -73,14 +70,16 @@ function MainPage({ sound, setSound, imgList, img, setImg }) {
             value={input}
             className="MainPage-center-input-filed"
           />
-          {
-            hint?<p>
-            * Biệt danh mà tôi đặt cho bạn, nếu không có thì ghi
-            tên, thử nhớ lại đi nhé, click vào ảnh nếu đúng mật khẩu
-          </p>:<button onClick={handleChangeMod} style={{width:80}}>{text}</button>
-          }
-
-            
+          {hint ? (
+            <p>
+              * Biệt danh mà tôi đặt cho bạn, nếu không có thì ghi tên, thử nhớ
+              lại đi nhé, click vào ảnh nếu đúng mật khẩu
+            </p>
+          ) : (
+            <button onClick={handleChangeMod} style={{ width: 80 }}>
+              {text}
+            </button>
+          )}
         </div>
       </div>
     </>
