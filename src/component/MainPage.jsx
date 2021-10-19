@@ -9,20 +9,21 @@ function MainPage({ sound, setSound, imgList, img, setImg }) {
     setInput(e.target.value);
   };
   React.useEffect(() => {
-    if (input.toLowerCase().includes("ly")) {
+    let temp = input.toLowerCase();
+    if (temp.includes("ly")) {
       setImg(imgList.ly);
       return;
     }
-    if (input.toLowerCase().includes("muvan")) {
+    if (temp.includes("muvan")) {
       setImg(imgList.my);
       return;
     }
 
-    if (input.toLowerCase().includes("kehuydiettrodua")) {
+    if (temp.includes("kehuydiettrodua")) {
       setImg(imgList.nhi);
       return;
     }
-    if (input.toLowerCase().includes("khongchomuontien")) {
+    if (temp.includes("khongchomuontien")) {
       setImg(imgList.truc);
       return;
     }
