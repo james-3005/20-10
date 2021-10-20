@@ -45,9 +45,11 @@ function MainPage({ sound, setSound }) {
       value.includes("mp") ||
       value.includes("mai phương") ||
       value.includes("maiphuong")
-    )
-      setFloat(true);
+    ){
+          setFloat(true);
     setImg("cat2.jpg");
+    }
+  
   };
   return (
     <>
@@ -56,7 +58,7 @@ function MainPage({ sound, setSound }) {
         <div className="MainPage-center-input">
           <div className="MainPage-center-input-img">
             <img src="arrow.svg" alt="" />
-            <Link className="second">
+            <Link className="second" onClick={e => e.preventDefault()}>
               <img src={img} alt="" className="second-img" />
             </Link>
             <img src="arrow2.svg" alt="" />
