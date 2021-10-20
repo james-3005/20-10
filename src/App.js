@@ -17,14 +17,6 @@ function App() {
     sound.play();
   }, []);
   const [sound, setSound] = React.useState(true);
-  const imgList = {
-    default: "cat.jpg",
-    my: "my1.jpg",
-    ly: "ly.jpg",
-    nhi: "nhi.jpg",
-    truc: "truc.jpg",
-  };
-  const [img, setImg] = React.useState(imgList.default);
   return (
     <div className="main">
       <Switch>
@@ -32,13 +24,10 @@ function App() {
           <MainPage
             sound={sound}
             setSound={setSound}
-            imgList={imgList}
-            img={img}
-            setImg={setImg}
           />
         </Route>
         <Route path="/congrat" exact>
-          <SecondPage sound={sound} setSound={setSound} img={img}/>
+          <SecondPage sound={sound} setSound={setSound}/>
         </Route>
       </Switch>
     </div>

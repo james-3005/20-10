@@ -1,49 +1,53 @@
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { Howler } from "howler";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-function MainPage({ sound, setSound, imgList, img, setImg }) {
+import Mail from "./Mail";
+function MainPage({ sound, setSound }) {
   const [input, setInput] = React.useState("");
   const [hint, setHint] = React.useState(false);
   const handleChange = (e) => {
     setInput(e.target.value);
   };
-  React.useEffect(() => {
-    let temp = input.toLowerCase();
-    if (temp.includes("ly")) {
-      setImg(imgList.ly);
-      return;
-    }
-    if (temp.includes("muvan")) {
-      setImg(imgList.my);
-      return;
-    }
+  // React.useEffect(() => {
+  //   let temp = input.toLowerCase();
+  //   if (temp.includes("ly")) {
+  //     setImg(imgList.ly);
+  //     return;
+  //   }
+  //   if (temp.includes("muvan")) {
+  //     setImg(imgList.my);
+  //     return;
+  //   }
 
-    if (temp.includes("kehuydiettrodua")) {
-      setImg(imgList.nhi);
-      return;
-    }
-    if (temp.includes("khongchomuontien")) {
-      setImg(imgList.truc);
-      return;
-    }
-    setImg(imgList.default);
-  }, [input]);
+  //   if (temp.includes("kehuydiettrodua")) {
+  //     setImg(imgList.nhi);
+  //     return;
+  //   }
+  //   if (temp.includes("khongchomuontien")) {
+  //     setImg(imgList.truc);
+  //     return;
+  //   }
+  //   setImg(imgList.default);
+  // }, [input]);
+  const [img, setImg] = React.useState("cat.jpg");
   const handleSound = () => {
     setSound(!sound);
   };
   React.useEffect(() => {
     Howler.volume(sound ? 0.3 : 0);
   }, [sound]);
-  const handleChangePage = (e) => {
-    if (img.includes("cat.jpg")) e.preventDefault();
-  };
-  const [text, setText] = React.useState("Hint");
-  const handleChangeMod = () => {
-    if (text === "Hint") {
-      setText("Quá thất vọng, click lần nữa");
-      return;
-    } else setHint(true);
+  const [float, setFloat] = useState(false);
+  const handleSubmit = () => {
+    const value = input.toLowerCase();
+    if (
+      value.includes("mai phuong") ||
+      value.includes("mp") ||
+      value.includes("mai phương") ||
+      value.includes("maiphuong")
+    )
+      setFloat(true);
+    setImg("cat2.jpg");
   };
   return (
     <>
@@ -52,7 +56,7 @@ function MainPage({ sound, setSound, imgList, img, setImg }) {
         <div className="MainPage-center-input">
           <div className="MainPage-center-input-img">
             <img src="arrow.svg" alt="" />
-            <Link to="/congrat" className="second" onClick={handleChangePage}>
+            <Link className="second">
               <img src={img} alt="" className="second-img" />
             </Link>
             <img src="arrow2.svg" alt="" />
@@ -71,15 +75,18 @@ function MainPage({ sound, setSound, imgList, img, setImg }) {
             value={input}
             className="MainPage-center-input-filed"
           />
-          {hint ? (
-            <p>
-              * Biệt danh mà tôi đặt cho bạn, nếu không có thì ghi tên, thử nhớ
-              lại đi nhé, click vào ảnh nếu đúng mật khẩu
-            </p>
-          ) : (
-            <button onClick={handleChangeMod} style={{ width: 80 }}>
-              {text}
-            </button>
+          <Button
+            color="primary"
+            variant="outlined"
+            style={{ width: 120 }}
+            onClick={handleSubmit}
+          >
+            Xác nhận
+          </Button>
+          {float && (
+            <Link to="/congrat" >
+              <Mail />
+            </Link>
           )}
         </div>
       </div>
